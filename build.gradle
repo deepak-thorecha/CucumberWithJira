@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "io.freefair.gradle:lombok-plugin:6.0.0-m2"
+    }
+}
+
+apply plugin: "java"
+apply plugin: "io.freefair.lombok"
+
+group 'org.automation'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    compile ('com.google.guava:guava:30.1.1-jre')
+    annotationProcessor('org.projectlombok:lombok:1.18.20')
+    testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
+
+    implementation ('org.seleniumhq.selenium:selenium-java:4.0.0-beta-3') {
+        exclude group: 'com.google.guava', module: 'guava'
+    }
+
+    implementation ('io.github.bonigarcia:webdrivermanager:4.4.1') {
+        exclude group: 'com.google.guava', module: 'guava'
+    }
+
+    compile 'commons-io:commons-io:2.11.0'
+
+    implementation group: 'io.cucumber', name: 'cucumber-java', version: '6.9.1'
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: '6.9.1'
+    implementation group: 'io.cucumber', name: 'cucumber-core', version: '6.9.1'
+//    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+//    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+// https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.4.0'
+
+    testCompileOnly fileTree(dir: 'libs', include: '*.jar')
+
+
+}
+
+test {
+    useJUnitPlatform()
+}
