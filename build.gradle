@@ -22,14 +22,15 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    compile ('com.google.guava:guava:30.1.1-jre')
+    testCompile ('com.google.guava:guava:23.0')
     annotationProcessor('org.projectlombok:lombok:1.18.20')
     testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
 
-    implementation ('org.seleniumhq.selenium:selenium-java:4.0.0-beta-3') {
-        exclude group: 'com.google.guava', module: 'guava'
-    }
-
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.12.0'
+    /*{
+exclude group: 'com.google.guava', module: 'guava'
+}*/
     implementation ('io.github.bonigarcia:webdrivermanager:4.4.1') {
         exclude group: 'com.google.guava', module: 'guava'
     }
@@ -44,7 +45,11 @@ dependencies {
 // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
     testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.4.0'
 
+    // https://mvnrepository.com/artifact/net.rcarz/jira-client
+    implementation group: 'net.rcarz', name: 'jira-client', version: '0.5'
+
     testCompileOnly fileTree(dir: 'libs', include: '*.jar')
+
 
 
 }

@@ -22,8 +22,9 @@ import static Util.Constants.CYCLE_ID;
 @Slf4j
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty"},
+        plugin = {"pretty", "json:target/cucumber-report.json"},
         features = "src/test/resources/features",
+        tags = "@JiraIssueType",
         glue = {"stepDefinitions"},
         monochrome = true)
 public class CucumberRunner {
@@ -33,7 +34,7 @@ public class CucumberRunner {
         WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
         String d = new SimpleDateFormat("YYYY-MM-dd").format(new Date());
         CreateCycleResponse cycle = CreateTestCycleAndExecutions.createTestCycle(
-                "Test Automation - " + d + " (" + UUID.randomUUID() + ")");
+                "Test Cycle Automation - " + d + " (" + UUID.randomUUID() + ")");
         CYCLE_ID = cycle.getId();
         log.info("Created CYCLE = " + CYCLE_ID);
     }

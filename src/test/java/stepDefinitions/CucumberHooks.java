@@ -34,18 +34,13 @@ public class CucumberHooks extends BaseTest {
         updateTestStatusMap(scenario.isFailed() ? ExecutionStatus.FAIL.name() : ExecutionStatus.PASS.name(), executionIds);
     }
 
-    /*@After(order = 1)
-    public void quit() {
-        closeDriver();
-    }*/
-
     private void updateTestStatusMap(String statusKey, List<String> execIds) {
         if(TEST_STATUS.containsKey(ExecutionStatus.valueOf(statusKey).name())) {
-            TEST_STATUS.put(ExecutionStatus.valueOf(statusKey).name(), execIds);
-        } else {
             List<String> updateExecIds = TEST_STATUS.get(ExecutionStatus.valueOf(statusKey).name());
             updateExecIds.addAll(execIds);
             TEST_STATUS.put(ExecutionStatus.valueOf(statusKey).name(), updateExecIds);
+        } else {
+            TEST_STATUS.put(ExecutionStatus.valueOf(statusKey).name(), execIds);
         }
     }
 }

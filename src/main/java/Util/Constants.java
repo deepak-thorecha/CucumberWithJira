@@ -9,6 +9,8 @@ public class Constants {
     public static final String PROJECT_NAME = "ASSET-";
 
     public static final String JIRA_BASE_URL = "https://thordee.atlassian.net";
+    public static final String JIRA_USER = "thordee@hilti.com";
+    public static final String JIRA_KEY = "UPOot3gnA2YntVGo2woc3AAB";
 
     public static final String ZAPI_BASE_URL = "https://prod-api.zephyr4jiracloud.com/connect";
     public static final String ACCESS_KEY = "NjQ5ZGUwY2ItNTBjYy0zYTJlLThjYjYtYzEzZWNmOGEyMzM4IDYwZWU3ZmNhYTBkZTU4MDA2YWIyMGE2NyBVU0VSX0RFRkFVTFRfTkFNRQ";

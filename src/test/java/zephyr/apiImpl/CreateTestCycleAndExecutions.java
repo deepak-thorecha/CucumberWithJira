@@ -6,6 +6,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import jiraApi.JIRAIssuesApi;
+import net.rcarz.jiraclient.JiraException;
 import org.apache.http.entity.ContentType;
 import org.openqa.selenium.remote.http.HttpMethod;
 import zephyr.JWTGenerator;
@@ -34,17 +35,6 @@ public class CreateTestCycleAndExecutions {
                 .addHeader("Content-Type", ContentType.APPLICATION_JSON.getMimeType())
                 .setBody(entity).build();
         return RestAssured.given(requestSpecification).post();
-        /*CloseableHttpClient client = HttpClients.createMinimal();
-        HttpPost httpPost = new HttpPost(ZAPI_BASE_URL + uriPath);
-
-        httpPost.addHeader(HDR_AUTHORIZATION, jwtToken);
-        httpPost.addHeader(HDR_ACCESS_KEY, ACCESS_KEY);
-        httpPost.addHeader("Content-Type", ContentType.APPLICATION_JSON.getMimeType());
-        StringEntity strEntity = new StringEntity(entity);
-        httpPost.setEntity(strEntity);
-        CloseableHttpResponse response = client.execute(httpPost);
-        client.close();
-        return response;*/
     }
 
     public static CreateCycleResponse createTestCycle(String cycleName)
@@ -73,7 +63,7 @@ public class CreateTestCycleAndExecutions {
                 .build();
         String entity = mapper.writeValueAsString(addTest);
         Response response = postRequest(entity, "/public/rest/api/1.0/executions/add/cycle/" + cycleId);
-        return response.getBody().toString();
+        return response.getBody().asPrettyString();
     }
 
     public static List<String> createExecutionId(List<String> issues) {
@@ -92,10 +82,8 @@ public class CreateTestCycleAndExecutions {
                                 .id(ADD_TEST_REF_ID).build();
                         String entity = mapper.writeValueAsString(execRequest);
                         Response response = postRequest(entity, "/public/rest/api/1.0/execution");
-                        /*JsonObject json = mapper.readValue(response.getBody().asPrettyString(), JsonObject.class);
-                        executionIds.add(json.getAsJsonObject("execution").get("id").getAsString());*/
                         executionIds.add(response.getBody().jsonPath().getString("execution.id"));
-                    } catch (IOException | URISyntaxException e) {
+                    } catch (IOException | URISyntaxException | JiraException e) {
                         e.printStackTrace();
                     }
                 });

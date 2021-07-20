@@ -2,6 +2,7 @@ package zephyr;
 
 import com.thed.zephyr.cloud.rest.ZFJCloudRestClient;
 import com.thed.zephyr.cloud.rest.client.JwtGenerator;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.remote.http.HttpMethod;
 
 import java.net.URI;
@@ -9,6 +10,7 @@ import java.net.URISyntaxException;
 
 import static Util.Constants.*;
 
+@Slf4j
 public class JWTGenerator {
 
     private final static String zephyrBaseUrl = ZAPI_BASE_URL;
@@ -24,7 +26,7 @@ public class JWTGenerator {
         URI uri = new URI(createCycleUri);
         int expirationInSec = 360;
         String jwt = jwtGenerator.generateJWT(method.name(), uri, expirationInSec);
-        System.out.println("JWT Token : " + jwt);
+        log.debug("JWT Token : " + jwt);
         return jwt;
     }
 }
