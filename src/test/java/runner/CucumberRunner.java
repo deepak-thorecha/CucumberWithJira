@@ -10,7 +10,6 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import zephyr.apiImpl.CreateTestCycleAndExecutions;
 import zephyr.pojo.CreateCycleResponse;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
